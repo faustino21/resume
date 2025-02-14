@@ -12,10 +12,11 @@ import tino from '../assets/tino.jpeg'
 
 import { getAllPosts, sortMDByDate } from '@/utils'
 
-const languages = ['lorem', 'ipsum']
-const frontend = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
-const backend = ['lorem', 'ipsum', 'lorem', 'ipsum']
-const others = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
+const languages = ['English', 'Bahasa']
+const programmingLanguages = ['Golang', 'Python', 'Javascript']
+const frameWorks = ['Gin', 'Echo', 'Django', 'ReactJs', 'NuxtJs']
+const databaseManagements = ['Mysql', 'Postgresql']
+const others = ['Git', 'Docker', 'Linux', 'GCP']
 
 const MAX_POSTS = 10
 const allPosts = await getAllPosts()
@@ -196,8 +197,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
 		<Section title='Skills'>
 			<SkillLayout title='Languages' skills={languages} />
-			<SkillLayout title='Frontend' skills={frontend} />
-			<SkillLayout title='Backend' skills={backend} />
+			<SkillLayout title='Programming Languages' skills={programmingLanguages} />
+			<SkillLayout title='Framework' skills={frameWorks} />
+			<SkillLayout title='Database Management' skills={databaseManagements} />
 			<SkillLayout title='Others' skills={others} />
 		</Section>
 	</div>
