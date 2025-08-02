@@ -8,19 +8,27 @@ import SkillLayout from '../components/SkillLayout.astro'
 import PostPreview from '@/components/blog/PostPreview.astro'
 
 import { Image } from 'astro:assets'
-import tino from '../assets/tino.jpeg'
+import tino from '../assets/ragunan-1.jpeg'
 
-import { getAllPosts, sortMDByDate } from '@/utils'
+import { 
+	getAllPosts, 
+	sortMDByDate, 
+	getAllExperience,
+	sortExpMDByDate,
+ } from '@/utils'
+import { jsx } from 'astro/jsx-runtime'
 
 const languages = ['English', 'Bahasa']
 const programmingLanguages = ['Golang', 'Python', 'Javascript']
-const frameWorks = ['Gin', 'Echo', 'Django', 'ReactJs', 'NuxtJs']
+const frameWorks = ['Gin', 'Echo', 'Django', 'ReactJs', 'NuxtJs', 'Astro']
 const databaseManagements = ['Mysql', 'Postgresql']
 const others = ['Git', 'Docker', 'Linux', 'GCP']
 
-const MAX_POSTS = 10
+const MAX_POSTS = 5
 const allPosts = await getAllPosts()
+const allExp = await getAllExperience()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
+const allExpByDate = sortExpMDByDate(allExp)
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -29,7 +37,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			<Image
 				src={tino}
 				alt='profile photo'
-				class='h-28 w-28 rounded-full'
+				class='h-32 w-32 rounded-full object-cover'
 				loading='eager'
 			/>
 
@@ -75,83 +83,76 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
 		<Section title='About'>
 			<p class='text-muted-foreground'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
-				consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
-				odit commodi quis deserunt incidunt et dolor iure ut! Lorem ipsum dolor sit, amet
-				consectetur adipisicing elit. Alias quia, doloribus ut beatae perspiciatis voluptatibus.
+				Hello World! I'm Tino. I craft software that isn't just functional—it's built to last. With a deep focus on backend development, 
+				I design high-performance systems that bring efficiency to the core ⚙️.
+				<br/><br/>
+				Every problem has an elegant solution, and I find it through clean, maintainable code. My work isn't just about writing logic, 
+				it's about turning complexity into simplicity 🧩, ensuring that every system I build stands the test of time ⏳.
+				<br/><br/>
+				If you're looking for a developer who can transform ideas into seamless, reliable solutions — Let's make it happen 🚀
 			</p>
 		</Section>
-		{
-			allPostsByDate.length > 0 && (
-				<Section title='Posts'>
-					<ul class='flex flex-col gap-y-2'>
-						{allPostsByDate.map((p) => (
-							<li class='flex flex-col gap-x-2 sm:flex-row'>
-								<PostPreview post={p} />
-							</li>
-						))}
-					</ul>
-				</Section>
-			)
-		}
+
+		<Section title='Posts'>
+			{allPostsByDate.length === 0 && <p>No posts yet.</p>}
+			<ul class='flex flex-col gap-y-2'>
+				{allPostsByDate.map((p) => (
+					<li class='flex flex-col gap-x-2 sm:flex-row'>
+						<PostPreview post={p} />
+					</li>
+				))}
+			</ul>
+			
+			{
+				allPostsByDate.length !== 0 && (
+					<span class='mt-4 block sm:text-start'>
+						<a aria-label='View all blog categories' class='' href='/blog/' data-astro-prefetch>
+							Show All →
+						</a>
+					</span>
+				)
+			}
+		</Section>
 
 		<Section title='Experience'>
-			<Card
-				heading='Apaan'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-12 w-auto md:-left-16'
-			>
-				<ul class='ml-4 list-disc text-muted-foreground'>
-					<li>
-						Lorem, ipsum dodfsadgasdgalor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-						molestiae laboriosam pariatur!
-
-						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-					</li>
-				</ul>
-			</Card>
-			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-12 w-auto md:-left-16'
-			/>
+			{
+				allExpByDate.map((p)=>(
+					<Card
+						heading={p.data.title}
+						subheading={p.data.jobPosition}
+						date={p.data.jobDate}
+						imagePath='/src/assets/about-astro.png'
+						altText='Lorem, ipsum dolor sit'
+						imageClass='h-12 w-auto md:-left-16'
+					>
+						<span class='mt-4 block sm:text-start'>
+							<a aria-label='View all blog categories' class='' href={`/experience/${p.slug}`} data-astro-prefetch>
+								See More →
+							</a>
+						</span>
+					</Card>
+				))
+			}
 		</Section>
 
 		<Section title='Education'>
 			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-12 w-auto md:-left-16'
-			>
-				<ul class='ml-4 list-disc text-muted-foreground'>
-					<li>
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-						molestiae laboriosam pariatur!
-
-						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-					</li>
-				</ul>
-			</Card>
-			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-12 w-auto md:-left-16'
-			/>
+                heading='Enigma Camp'
+                subheading='Software Engineering Bootcamp'
+                date='Jakarta | March 2022 - June 2022'
+                imagePath='/src/assets/about-astro.png'
+                altText='Enigma Camp'
+                imageClass='h-12 w-auto md:-left-16'
+            >
+                <ul class='ml-4 list-disc text-muted-foreground'>
+					<li>Trained in Golang, React.js, PostgreSQL, and MySQL.</li>
+					<li>Built backend services with Gin Gonic and applied clean architecture best practices.</li>
+					<li>Developed fullstack projects with focus on modularity, performance, and real-world problem solving.</li>
+                </ul>
+            </Card>
 		</Section>
 
-		<Section title='Projects'>
+		<!-- <Section title='Projects'>
 			<div class='flex flex-col gap-y-3 sm:flex-row sm:gap-x-3 sm:gap-y-0'>
 				<ProjectCard
 					href='https://www.google.com'
@@ -169,10 +170,18 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					altText='Lorem, ipsum dolor sit'
 					class='w-full sm:w-1/2'
 				/>
+				<ProjectCard
+					as='div'
+					heading='Coming soon...'
+					subheading=''
+					imagePath='/src/assets/coming-soon.png'
+					altText='Lorem, ipsum dolor sit'
+					class='w-full sm:w-1/2'
+				/>
 			</div>
-		</Section>
+		</Section> -->
 
-		<Section title='Certifications'>
+		<!-- <Section title='Certifications'>
 			<Card
 				as='a'
 				heading='Lorem ipsum, dolor sit amet consectetur adipisicing.'
@@ -193,7 +202,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imageClass='h-11 w-auto md:-left-16'
 				href='https://www.google.com'
 			/>
-		</Section>
+		</Section> -->
 
 		<Section title='Skills'>
 			<SkillLayout title='Languages' skills={languages} />
