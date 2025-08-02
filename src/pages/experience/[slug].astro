@@ -1,0 +1,25 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+
+import ExpLayout from '@/layouts/ExpPost.astro'
+import { getAllExperience } from '@/utils'
+
+export const getStaticPaths = (async () => {
+	const experienceSlug = await getAllExperience()
+	return experienceSlug.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry }
+	}))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<ExpLayout post={entry}>
+	<Content />
+</ExpLayout>

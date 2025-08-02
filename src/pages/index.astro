@@ -94,6 +94,11 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 							</li>
 						))}
 					</ul>
+					<span class='mt-4 block sm:text-start'>
+						<a aria-label='View all blog categories' class='' href='/blog/' data-astro-prefetch>
+							Show All →
+						</a>
+					</span>
 				</Section>
 			)
 		}
@@ -162,6 +167,14 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit.'
 					imagePath='/src/assets/coming-soon.png'
 					altText='Example'
+					class='w-full sm:w-1/2'
+				/>
+				<ProjectCard
+					as='div'
+					heading='Coming soon...'
+					subheading=''
+					imagePath='/src/assets/coming-soon.png'
+					altText='Lorem, ipsum dolor sit'
 					class='w-full sm:w-1/2'
 				/>
 				<ProjectCard

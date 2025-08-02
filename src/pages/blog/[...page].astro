@@ -73,6 +73,7 @@ const paginationProps = {
 						<ul class='flex flex-col gap-y-4 text-start'>
 							{page.data.map((p) => (
 								<PostPreview post={p} withDesc />
+								<p>{p.data.publishDate}</p>
 							))}
 						</ul>
 						<Pagination {...paginationProps} />
