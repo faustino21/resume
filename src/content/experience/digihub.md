@@ -5,6 +5,8 @@ publishDate: 2024-05-01
 tags: ["golang", "freelance", "remote", "echo", "backend"]
 draft: false
 slug : digihub-telkomsel
+jobPosition : "Backend Developer"
+jobDate : "November 2022 - February 2023"
 ---
 
 ###   

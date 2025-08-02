@@ -39,6 +39,8 @@ const experience = defineCollection({
 		z.object({
 			title: z.string().max(60),
 			description: z.string().min(10).max(160),
+			jobPosition: z.string().optional(),
+			jobDate: z.string().optional(),
 			publishDate: z
 				.string()
 				.or(z.date())

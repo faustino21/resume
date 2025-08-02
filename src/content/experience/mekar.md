@@ -1,10 +1,12 @@
 ---
 title: "PT. Mekar Investama Teknologi  "
 description: "Fullstack Developer → Assistant Tech Lead"
-publishDate: 22 Feb 2023
+publishDate: 3 Aug 2025
 tags: ["test", "image"]
 draft : false
 slug : "mekar-investama-teknologi"
+jobPosition : "Fullstack Developer → Assistant Tech Lead"
+jobDate : "July 2022 - Present"
 ---
 
 **Fullstack Developer → Assistant Tech Lead**  
