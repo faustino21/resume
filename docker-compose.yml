@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ${IMAGE_NAME:-faustinoaron-resume}:${IMAGE_TAG:-latest}
+    container_name: resume-web
+    restart: unless-stopped
+    init: true
+    ports:
+      - '${HTTP_PORT:-8080}:8080'
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=16m
+      - /var/cache/nginx:mode=0700,uid=101,gid=101,size=64m
+      - /var/run:mode=0755,uid=101,gid=101,size=8m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/health']
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 256M
+        reservations:
+          memory: 32M
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
